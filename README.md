@@ -1,36 +1,144 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!--- # Exemplo de imagem (opcional)
 
-## Getting Started
+<p align="center">
+	<img src=".github/example.png" alt="Barber Shop SaaS">
+</p>-->
 
-First, run the development server:
+# Barber Shop SaaS — API Backend
+
+Este repositório contém o backend e frontend do projeto "Barber Shop SaaS": uma aplicação para gerenciamento de barbearias, serviços e agendamentos, feita para praticar conceitos fullstack
+
+## Tech Stack
+
+[![My Skills](https://skillicons.dev/icons?i=ts,nodejs,nestjs,prisma,postgres,nextjs,tailwind)](https://skillicons.dev)
+
+## Estrutura do repositório
+
+- `backend/` — NestJS + PrismaORM + Postgresql
+- `frontend/` — Next.js + Tailwind (UI)
+
+## Iniciando (development)
+
+1. Instale dependências na raiz (opcional) e em cada pacote:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+# raiz (opcional)
+npm install
+
+# backend
+cd backend && npm install
+
+# frontend
+cd ../frontend && npm install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Variáveis de ambiente: crie/edite o arquivo `.env` (na raiz ou em `backend/`) com suas chaves. Exemplo mínimo para o `backend`:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+DATABASE_URL="postgresql://user:password@localhost:5432/dbname"
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+3. Gerar client Prisma (no `backend`):
 
-## Learn More
+```bash
+cd backend
+npx prisma generate
+```
 
-To learn more about Next.js, take a look at the following resources:
+4. Rodar migrações (desenvolvimento):
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+npx prisma migrate dev --name init_db
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+5. Popular banco (seed):
 
-## Deploy on Vercel
+```bash
+npx prisma db seed
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+6. Iniciar em desenvolvimento:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```bash
+# backend
+npm run start:dev
+
+# frontend
+cd ../frontend && npm run dev
+```
+
+<!---## Endpoints principais (resumo)
+
+<details>
+	<summary><strong>Auth</strong></summary>
+
+| rota | descrição |
+| ---- | --------- |
+| <kbd>POST /auth/signin</kbd> | Autenticação / login |
+
+</details>
+
+<details>
+	<summary><strong>User</strong></summary>
+
+| rota | descrição |
+| ---- | --------- |
+| <kbd>POST /user</kbd> | Criar usuário |
+| <kbd>GET /user/:id</kbd> | Obter usuário por ID (auth) |
+| <kbd>PATCH /user/:id</kbd> | Atualizar usuário (auth) |
+| <kbd>DELETE /user/:id</kbd> | Remover usuário (auth) |
+
+</details>
+
+<details>
+	<summary><strong>Barbershops</strong></summary>
+
+| rota | descrição |
+| ---- | --------- |
+| <kbd>POST /barbershops</kbd> | Criar barbearia |
+| <kbd>GET /barbershops</kbd> | Listar barbearias |
+| <kbd>GET /barbershops/:id</kbd> | Obter barbearia por ID |
+| <kbd>PATCH /barbershops/:id</kbd> | Atualizar barbearia |
+| <kbd>DELETE /barbershops/:id</kbd> | Remover barbearia |
+
+</details>
+
+<details>
+	<summary><strong>Services</strong></summary>
+
+| rota | descrição |
+| ---- | --------- |
+| <kbd>POST /barbershops/:id/services</kbd> | Criar serviço para barbearia |
+| <kbd>GET /services</kbd> | Listar serviços |
+| <kbd>GET /services/:id</kbd> | Obter serviço por ID |
+| <kbd>PATCH /services/:id</kbd> | Atualizar serviço |
+| <kbd>DELETE /services/:id</kbd> | Remover serviço |
+
+</details>
+
+<details>
+	<summary><strong>Bookings</strong></summary>
+
+| rota | descrição |
+| ---- | --------- |
+| <kbd>POST /bookings</kbd> | Criar agendamento |
+| <kbd>GET /bookings</kbd> | Listar agendamentos |
+| <kbd>GET /bookings/:id</kbd> | Obter agendamento por ID |
+| <kbd>PATCH /bookings/:id</kbd> | Atualizar agendamento |
+| <kbd>DELETE /bookings/:id</kbd> | Cancelar agendamento |
+
+</details>-
+
+> Observação: rotas e nomes podem variar conforme implementação — use o código em `backend/src` para referência exata. -->
+
+## Contribuir
+
+1. Clone o repositório: `git clone <repo>`
+2. Crie uma branch de feature: `git checkout -b feature/nomedafuncao`
+3. Siga o padrão de commits e abra um Pull Request explicando a mudança.
+
+## Documentação útil
+
+- [Prisma Docs](https://www.prisma.io/docs)
+- [NestJS Docs](https://docs.nestjs.com)
+- [Next.js Docs](https://nextjs.org/docs)

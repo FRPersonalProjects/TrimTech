@@ -1,8 +1,12 @@
 // npx prisma format
 // npx prisma migrate dev --name init_db
+// 
 
 generator client {
   provider = "prisma-client"
+  output   = "./generated/prisma"
+  engineType = "dataproxy"
+  moduleFormat    = "cjs"
 }
 
 datasource db {
