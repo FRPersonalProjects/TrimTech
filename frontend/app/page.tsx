@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 import { Button } from "@/app/_components/ui/button";
 import Header from "./_components/header";
 import { Input } from "./_components/ui/input";
@@ -6,15 +8,37 @@ import Image from "next/image";
 import { Card, CardContent } from "./_components/ui/card";
 import { Badge } from "./_components/ui/badge";
 import { Avatar, AvatarImage } from "./_components/ui/avatar";
+import { request } from "./_lib/request";
 
-const Home = () => {
+async function Home() {
+  // pega todos os cookies para repassar ao backend
+  const cookieStore = cookies();
+  const cookieHeader = cookieStore
+    .getAll()
+    .map((c) => `${c.name}=${c.value}`)
+    .join("; ");
+
+  let user = null;
+
+  try {
+    // chama a rota /me enviando os cookies para validar o token
+    user = await request("/auth/me", {
+      headers: {
+        Cookie: cookieHeader, 
+      },
+      cache: "no-store",
+    });
+  } catch (err) {
+    // token expirado ou inválido, redireciona para o login
+    redirect("/login");
+  }
+
   return (
     <div>
       <Header />
       <div className="p-5">
-        <h2 className="text-xl font-bold">Olá, usuário!</h2>
+        <h2 className="text-xl font-bold">Olá, {user.name}!</h2>
         <p>Sexta feira, 09 de janeiro</p>
-
         <div className="flex items-center gap-2 mt-6 space-x-2">
           <Input placeholder="Faça sua busca..." />
           <Button>
@@ -57,6 +81,6 @@ const Home = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Home;
