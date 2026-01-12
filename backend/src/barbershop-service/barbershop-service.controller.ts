@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  NotFoundException,
 } from '@nestjs/common';
 import { BarbershopServiceService } from './barbershop-service.service';
 import { CreateBarbershopServiceDto } from './dto/create-barbershop-service.dto';
@@ -17,22 +18,24 @@ export class BarbershopServiceController {
     private readonly barbershopServiceService: BarbershopServiceService,
   ) {}
 
-  @Post()
+  /* @Post()
   create(@Body() createBarbershopServiceDto: CreateBarbershopServiceDto) {
     return this.barbershopServiceService.create(createBarbershopServiceDto);
-  }
+  } */
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.barbershopServiceService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.barbershopServiceService.findOne(+id);
+  async findOne(@Param('id') id: string) {
+    const barbershop = await this.barbershopServiceService.findOne({ id });
+    if (!barbershop) throw new NotFoundException('Barbershop not found');
+    return barbershop;
   }
 
-  @Patch(':id')
+  /* @Patch(':id')
   update(
     @Param('id') id: string,
     @Body() updateBarbershopServiceDto: UpdateBarbershopServiceDto,
@@ -41,10 +44,10 @@ export class BarbershopServiceController {
       +id,
       updateBarbershopServiceDto,
     );
-  }
+  } */
 
-  @Delete(':id')
+  /* @Delete(':id')
   remove(@Param('id') id: string) {
     return this.barbershopServiceService.remove(+id);
-  }
+  } */
 }
