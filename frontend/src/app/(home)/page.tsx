@@ -1,7 +1,7 @@
 import { cookies } from "next/headers";
 import { Button } from "@/components/ui/button";
-import Header from "@/components/header";
-import BarbershopItem from "@/components/barbershop-item";
+import { Header } from "@/components/header";
+import { BarbershopItem } from "@/components/barbershop-item";
 import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
 import Image from "next/image";
@@ -13,9 +13,9 @@ import {
 import { getUserMe } from "@/services/user";
 import { LogoutButton } from "@/components/logout-button";
 import { QUICK_SEARCH_OPTIONS } from "@/constants/quickSearchOptions";
-import BookingItem from "@/components/booking-item";
+import { BookingItem } from "@/components/booking-item";
 
-async function Home() {
+export default async function Home() {
   const cookieStore = cookies();
   const cookieHeader = cookieStore
     .getAll()
@@ -113,5 +113,3 @@ async function Home() {
     </div>
   );
 }
-
-export default Home;

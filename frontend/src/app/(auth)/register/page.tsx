@@ -5,14 +5,13 @@ import { useRouter } from "next/navigation";
 import { register } from "@/services/user";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, Eye, EyeOff, ChevronRight } from "lucide-react";
+import { Loader2, Eye, ChevronRight, EyeClosed } from "lucide-react";
 import Link from "next/link";
 
 export default function RegisterPage() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -20,12 +19,6 @@ export default function RegisterPage() {
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
-
-    if (password !== confirmPassword) {
-      setError("As senhas não são iguais.");
-      return;
-    }
-
     setLoading(true);
     setError("");
 
@@ -49,18 +42,15 @@ export default function RegisterPage() {
         }
       `}</style>
 
-      {/* 1. CONTAINER CENTRAL */}
       <div className="flex-grow flex flex-col items-center justify-center p-4">
         <div className="w-full max-w-[85%] sm:max-w-md flex flex-col items-center">
-          {/* Cabeçalho */}
           <div className="flex flex-col items-center mb-8">
             <h1 className="text-xl font-bold text-primary">Criar Conta</h1>
           </div>
 
-          {/* Formulário de Cadastro */}
           <form
             onSubmit={handleSubmit}
-            className={`w-full flex flex-col mt-4 space-y-4 ${error ? "animate-shake" : ""}`}
+            className={`w-full flex flex-col mt-4 ${error ? "animate-shake" : ""}`}
           >
             <Input
               type="email"
@@ -85,10 +75,10 @@ export default function RegisterPage() {
                 if (error) setError("");
               }}
               required
-              className="bg-muted/50 h-11 rounded-full px-6 border-none"
+              className="bg-muted/50 h-11 rounded-full px-6 mt-4 border-none"
             />
 
-            <div className="relative">
+            <div className="relative mt-4">
               <Input
                 type={showPassword ? "text" : "password"}
                 placeholder="Senha"
@@ -109,30 +99,15 @@ export default function RegisterPage() {
                 onClick={() => setShowPassword(!showPassword)}
                 className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
               >
-                {showPassword ? <Eye size={18} /> : <EyeOff size={18} />}
+                {showPassword ? <Eye size={18} /> : <EyeClosed size={18} />}
               </button>
             </div>
-
-            <Input
-              type="password"
-              placeholder="Confirmar Senha"
-              value={confirmPassword}
-              onChange={(e) => {
-                setConfirmPassword(e.target.value);
-                if (error) setError("");
-              }}
-              required
-              className={`bg-muted/50 h-11 rounded-full px-6 border-none transition-all ${
-                error && error.includes("senhas")
-                  ? "ring-2 ring-destructive"
-                  : ""
-              }`}
-            />
 
             <Button
               type="submit"
               disabled={loading}
-              className="w-full bg-primary h-11 text-slate-200 font-semibold rounded-full border-2 border-primary mt-4 hover:bg-background transition-all flex items-center justify-center gap-2"
+              className="w-full bg-primary h-11 text-slate-200 font-semibold rounded-full border-2 border-primary mt-14 hover:bg-background transition-all flex items-center justify-center gap-2"
+              asChild
             >
               {loading ? (
                 <Loader2 className="h-4 w-4 animate-spin" />
@@ -144,7 +119,6 @@ export default function RegisterPage() {
             </Button>
           </form>
 
-          {/* Link para voltar ao Login */}
           <div className="mt-8 text-center">
             <p className="text-sm text-muted-foreground">
               Já tem uma conta?{" "}
@@ -159,15 +133,14 @@ export default function RegisterPage() {
         </div>
       </div>
 
-      {/* 2. FOOTER CONSISTENTE */}
       <footer className="w-full py-6 text-center space-y-1">
         <p className="text-[10px] text-muted-foreground uppercase tracking-widest font-medium">
-          You are completely safe.
+          Voce está a salvo.
         </p>
         <p className="text-[10px] text-muted-foreground uppercase tracking-widest">
-          Read our{" "}
+          Leia nossos{" "}
           <Link href="#" className="text-primary underline font-bold">
-            Terms & Conditions
+            Termos e Condições
           </Link>
         </p>
       </footer>

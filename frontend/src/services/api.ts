@@ -34,5 +34,3 @@ export async function api(path: string, opts: RequestInit = {}) {
   }
   return body;
 }
-
-export default api;

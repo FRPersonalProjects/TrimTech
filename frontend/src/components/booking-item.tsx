@@ -2,7 +2,7 @@ import { Badge } from "./ui/badge";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import { Card, CardContent } from "./ui/card";
 
-const BookingItem = () => {
+export function BookingItem() {
   return (
     <>
       <h2 className="mb-3 uppercase text-xs font-bold text-gray-400 mt-6 ">
@@ -31,6 +31,4 @@ const BookingItem = () => {
       </Card>
     </>
   );
-};
-
-export default BookingItem;
+}

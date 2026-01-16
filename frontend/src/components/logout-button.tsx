@@ -24,9 +24,9 @@ export function LogoutButton() {
   }
 
   return (
-    <Button 
-      variant="destructive" 
-      className="w-full mt-10 gap-2" 
+    <Button
+      variant="destructive"
+      className="w-full mt-10 gap-2"
       onClick={handleLogout}
       disabled={loading}
     >

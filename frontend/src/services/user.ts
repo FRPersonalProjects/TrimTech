@@ -6,7 +6,7 @@ export type User = {
   email: string;
 };
 
-// busca dados do user, validando o cookie para identicar o user logado
+// busca dados do user, validando o cookie para identificar o user logado
 export async function getUserMe(cookieHeader: string): Promise<User> {
   return await api("/users/me", {
     headers: { cookie: cookieHeader },

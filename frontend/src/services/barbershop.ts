@@ -36,9 +36,19 @@ export async function getBarbershopsSortedByName(
 export async function getBarbershopById(
   id: string,
   cookieHeader: string
-): Promise<Barbershop> {
-  return await api(`/barbershops/${id}`, {
-    headers: { cookie: cookieHeader },
-    cache: "no-store",
-  });
+): Promise<Barbershop | null> {
+  try {
+    const response = await api(`/barbershops/${id}`, {
+      headers: { cookie: cookieHeader },
+      cache: "no-store",
+    });
+    return response;
+  } catch (error: any) {
+
+    if (error.status === 404 || error.message.includes("not found")) {
+      return null;
+    }
+
+    throw error;
+  }
 }

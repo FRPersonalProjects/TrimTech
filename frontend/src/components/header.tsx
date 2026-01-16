@@ -3,7 +3,7 @@ import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import { MenuIcon } from "lucide-react";
 
-const Header = () => {
+export function Header() {
   return (
     <Card className="bg-transparent shadow-none border-0 pt-8 pb-0">
       <CardContent className="p-5 flex items-center justify-center relative">
@@ -20,6 +20,4 @@ const Header = () => {
       </CardContent>
     </Card>
   );
-};
-
-export default Header;
+}
