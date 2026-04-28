@@ -16,10 +16,10 @@ import { UpdateBarbershopDto } from './dto/update-barbershop.dto';
 export class BarbershopController {
   constructor(private readonly barbershopService: BarbershopService) {}
 
-  /* @Post()
+  @Post()
   create(@Body() createBarbershopDto: CreateBarbershopDto) {
     return this.barbershopService.create(createBarbershopDto);
-  } */
+  }
 
   @Get()
   async findAll() {
@@ -33,16 +33,19 @@ export class BarbershopController {
     return barbershop;
   }
 
-  /* @Patch(':id')
+  @Patch(':id')
   update(
     @Param('id') id: string,
     @Body() updateBarbershopDto: UpdateBarbershopDto,
   ) {
-    return this.barbershopService.update(+id, updateBarbershopDto);
-  } */
+    return this.barbershopService.update({
+      where: { id },
+      data: updateBarbershopDto,
+    });
+  }
 
-  /* @Delete(':id')
+  @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.barbershopService.remove(+id);
-  } */
+    return this.barbershopService.remove({ id });
+  }
 }

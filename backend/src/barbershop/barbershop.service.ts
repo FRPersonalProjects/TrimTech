@@ -4,27 +4,29 @@ import { UpdateBarbershopDto } from './dto/update-barbershop.dto';
 import { PrismaService } from 'src/database/prisma.service';
 import { Prisma, Barbershop } from 'generated/prisma/client';
 
+// campos que retornamos em todas as queries
+const barbershopSelect = {
+  id: true,
+  name: true,
+  address: true,
+  phone: true,
+  description: true,
+  imageUrl: true,
+  createdAt: true,
+  updatedAt: true,
+};
+
 @Injectable()
 export class BarbershopService {
   @Inject()
   private readonly prisma: PrismaService;
-  /* create(createBarbershopDto: CreateBarbershopDto) {
-    return 'This action adds a new barbershop';
-  } */
+
+  async create(data: CreateBarbershopDto): Promise<Barbershop> {
+    return this.prisma.barbershop.create({ data });
+  }
 
   async findAll(): Promise<Barbershop[]> {
-    return this.prisma.barbershop.findMany({
-      select: {
-        id: true,
-        name: true,
-        address: true,
-        phone: true,
-        description: true,
-        imageUrl: true,
-        createdAt: true,
-        updatedAt: true,
-      },
-    });
+    return this.prisma.barbershop.findMany({ select: barbershopSelect });
   }
 
   async findOne(
@@ -32,25 +34,22 @@ export class BarbershopService {
   ): Promise<Barbershop | null> {
     // retorna o usuario encontrado ou null
     return this.prisma.barbershop.findUnique({
-      where: barbershopWhereUniqueInput, // id da barbearia
-      select: {
-        id: true,
-        name: true,
-        address: true,
-        phone: true,
-        description: true,
-        imageUrl: true,
-        createdAt: true,
-        updatedAt: true,
-      },
+      where: barbershopWhereUniqueInput,
+      select: barbershopSelect,
     });
   }
 
-  /* update(id: number, updateBarbershopDto: UpdateBarbershopDto) {
-    return `This action updates a #${id} barbershop`;
-  } */
+  async update(params: {
+    where: Prisma.BarbershopWhereUniqueInput;
+    data: UpdateBarbershopDto;
+  }): Promise<Barbershop> {
+    return this.prisma.barbershop.update({
+      where: params.where,
+      data: params.data,
+    });
+  }
 
-  /* remove(id: number) {
-    return `This action removes a #${id} barbershop`;
-  } */
+  async remove(where: Prisma.BarbershopWhereUniqueInput): Promise<Barbershop> {
+    return this.prisma.barbershop.delete({ where });
+  }
 }

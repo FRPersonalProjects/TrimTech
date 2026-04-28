@@ -18,10 +18,10 @@ export class BarbershopServiceController {
     private readonly barbershopServiceService: BarbershopServiceService,
   ) {}
 
-  /* @Post()
+  @Post()
   create(@Body() createBarbershopServiceDto: CreateBarbershopServiceDto) {
     return this.barbershopServiceService.create(createBarbershopServiceDto);
-  } */
+  }
 
   @Get()
   async findAll() {
@@ -30,24 +30,24 @@ export class BarbershopServiceController {
 
   @Get(':id')
   async findOne(@Param('id') id: string) {
-    const barbershop = await this.barbershopServiceService.findOne({ id });
-    if (!barbershop) throw new NotFoundException('Barbershop not found');
-    return barbershop;
+    const service = await this.barbershopServiceService.findOne({ id });
+    if (!service) throw new NotFoundException('Service not found');
+    return service;
   }
 
-  /* @Patch(':id')
+  @Patch(':id')
   update(
     @Param('id') id: string,
     @Body() updateBarbershopServiceDto: UpdateBarbershopServiceDto,
   ) {
-    return this.barbershopServiceService.update(
-      +id,
-      updateBarbershopServiceDto,
-    );
-  } */
+    return this.barbershopServiceService.update({
+      where: { id },
+      data: updateBarbershopServiceDto,
+    });
+  }
 
-  /* @Delete(':id')
+  @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.barbershopServiceService.remove(+id);
-  } */
+    return this.barbershopServiceService.remove({ id });
+  }
 }

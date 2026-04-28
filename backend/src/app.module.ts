@@ -5,6 +5,7 @@ import { UserModule } from './user/user.module';
 import { DatabaseModule } from './database/database.module';
 import { BarbershopModule } from './barbershop/barbershop.module';
 import { BarbershopServiceModule } from './barbershop-service/barbershop-service.module';
+import { BookingModule } from './booking/booking.module';
 import { JwtAuthGuard } from './auth/jwt-auth.guards';
 
 @Module({
@@ -13,6 +14,7 @@ import { JwtAuthGuard } from './auth/jwt-auth.guards';
     BarbershopModule,
     UserModule,
     BarbershopServiceModule,
+    BookingModule,
     DatabaseModule,
   ],
   providers: [
