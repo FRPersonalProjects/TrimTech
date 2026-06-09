@@ -1,36 +1,108 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# TrimTech — Frontend
 
-## Getting Started
+Interface do TrimTech, feita com Next.js 14 (App Router) + Tailwind CSS.
 
-First, run the development server:
+## Stack
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Next.js 14** — app router, server components, server actions
+- **Tailwind CSS** — estilização
+- **shadcn/ui** — componentes base (button, card, badge, avatar, input)
+- **Lucide React** — ícones
+
+---
+
+## Estrutura de pastas
+
+```
+src/
+├── app/
+│   ├── layout.tsx                  # layout raiz (fonte, globals)
+│   ├── not-found.tsx               # pagina 404
+│   ├── globals.css
+│   │
+│   ├── (auth)/                     # grupo de rotas publicas
+│   │   ├── login/page.tsx          # tela de login
+│   │   └── register/page.tsx       # tela de cadastro
+│   │
+│   ├── (home)/
+│   │   └── page.tsx                # home — lista de barbearias
+│   │
+│   ├── barbershops/
+│   │   └── [id]/page.tsx           # detalhes da barbearia
+│   │
+│   └── bookings/
+│       └── page.tsx                # meus agendamentos
+│
+├── components/
+│   ├── header.tsx                  # cabecalho com logo e menu
+│   ├── barbershop-item.tsx         # card de barbearia na listagem
+│   ├── booking-item.tsx            # card de atalho para agendamentos
+│   ├── logout-button.tsx           # botao de sair
+│   └── ui/                         # componentes shadcn
+│       ├── avatar.tsx
+│       ├── badge.tsx
+│       ├── button.tsx
+│       ├── card.tsx
+│       └── input.tsx
+│
+├── services/                       # chamadas para a api
+│   ├── api.ts                      # fetch base com tratamento de erro
+│   ├── auth.ts                     # login e logout
+│   ├── barbershop.ts               # listar e buscar barbearias
+│   ├── booking.ts                  # criar, listar e cancelar agendamentos
+│   └── user.ts                     # perfil e cadastro
+│
+├── constants/
+│   └── quickSearchOptions.ts       # opcoes de busca rapida na home
+│
+├── lib/
+│   └── utils.ts                    # helper do tailwind (cn)
+│
+└── middleware.ts                   # redireciona para /login se nao autenticado
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Telas
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| rota | descrição |
+| ---- | --------- |
+| `/login` | login com email e senha |
+| `/register` | cadastro de novo usuario |
+| `/` | home com busca e listagem de barbearias |
+| `/barbershops/:id` | detalhes da barbearia (nome, endereço, serviços) |
+| `/bookings` | agendamentos do usuario — proximos e finalizados |
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Autenticação
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+O middleware (`src/middleware.ts`) protege todas as rotas. Se o cookie `access_token` não existir, redireciona para `/login`. Rotas `/login` e `/register` redirecionam para `/` se já estiver logado.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+---
 
-## Deploy on Vercel
+## Variáveis de ambiente
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Crie um `.env.local` na pasta `frontend/` com:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+```env
+NEXT_PUBLIC_API_URL=http://localhost:8080
+```
+
+---
+
+## Comandos
+
+```bash
+npm install        # instala dependencias
+npm run dev        # inicia em modo dev
+npm run build      # build de producao
+npm run lint       # verifica erros de lint
+npm start          # inicia o servidor de producao
+```
+
+---
+
+## Deploy
+
+O deploy é feito automaticamente na Vercel via GitHub Actions sempre que há push em `main` com mudanças em `frontend/` e o build passa. Veja [`.github/workflows/frontend.yml`](../.github/workflows/frontend.yml).
