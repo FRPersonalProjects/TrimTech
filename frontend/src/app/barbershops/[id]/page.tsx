@@ -32,7 +32,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
       <div className="relative h-[250px] w-full">
         <Image
           alt={barbershop.name}
-          src={barbershop?.imageUrl}
+          src={barbershop.imageUrl ?? ""}
           fill
           className="object-cover"
         />
