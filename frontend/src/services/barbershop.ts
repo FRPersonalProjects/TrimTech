@@ -43,9 +43,9 @@ export async function getBarbershopById(
       cache: "no-store",
     });
     return response;
-  } catch (error: any) {
-
-    if (error.status === 404 || error.message.includes("not found")) {
+  } catch (error) {
+    const e = error as { status?: number; message?: string };
+    if (e.status === 404 || e.message?.includes("not found")) {
       return null;
     }
 

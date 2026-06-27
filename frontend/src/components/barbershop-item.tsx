@@ -3,7 +3,7 @@ import { Card, CardContent } from "./ui/card";
 import { Button } from "./ui/button";
 import Image from "next/image";
 import { Badge } from "./ui/badge";
-import { MapIcon, MapPinIcon, StarIcon } from "lucide-react";
+import { MapPinIcon, StarIcon } from "lucide-react";
 import Link from "next/link";
 
 interface Barbershop {

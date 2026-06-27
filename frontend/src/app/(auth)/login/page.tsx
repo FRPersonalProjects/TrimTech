@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { login } from "@/services/auth";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Loader2, Eye, EyeOff, EyeClosed, LogIn } from "lucide-react";
+import { Loader2, Eye, EyeClosed, LogIn } from "lucide-react";
 
 export default function LoginPage() {
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ export default function LoginPage() {
       await login(email, password);
       router.refresh();
       router.push("/");
-    } catch (err) {
+    } catch {
       setEmail("");
       setPassword("");
       setError("Email ou senha inválidos.");

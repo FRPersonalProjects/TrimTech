@@ -9,6 +9,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import {
   getBarbershops,
   getBarbershopsSortedByName,
+  type Barbershop,
 } from "@/services/barbershop";
 import { getUserMe } from "@/services/user";
 import { LogoutButton } from "@/components/logout-button";
@@ -72,7 +73,7 @@ export default async function Home() {
         </h2>
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
           {Array.isArray(barbershops) && barbershops.length > 0 ? (
-            barbershops.map((b: any) => (
+            barbershops.map((b: Barbershop) => (
               <BarbershopItem key={b.id} barbershop={b} />
             ))
           ) : (
@@ -88,7 +89,7 @@ export default async function Home() {
         <div className="flex gap-4 overflow-auto [&::-webkit-scrollbar]:hidden">
           {Array.isArray(popularBarbershops) &&
           popularBarbershops.length > 0 ? (
-            popularBarbershops.map((b: any) => (
+            popularBarbershops.map((b: Barbershop) => (
               <BarbershopItem key={b.id} barbershop={b} />
             ))
           ) : (

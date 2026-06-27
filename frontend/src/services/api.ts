@@ -25,11 +25,10 @@ export async function api(path: string, opts: RequestInit = {}) {
   })();
 
   if (!res.ok) {
-    const err: any = new Error(
-      body?.message || res.statusText || "Request failed"
+    const err = Object.assign(
+      new Error(body?.message || res.statusText || "Request failed"),
+      { status: res.status, body }
     );
-    err.status = res.status;
-    err.body = body;
     throw err;
   }
   return body;

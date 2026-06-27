@@ -20,7 +20,7 @@ export async function getUserProfile(
 ): Promise<User | null> {
   try {
     return await getUserMe(cookieHeader);
-  } catch (err) {
+  } catch {
     return null;
   }
 }

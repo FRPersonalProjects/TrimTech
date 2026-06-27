@@ -18,7 +18,7 @@ export default async function BarbershopPage({ params }: BarbershopPageProps) {
     .map((c) => `${c.name}=${c.value}`)
     .join("; ");
 
-  const [barbershop, user] = await Promise.all([
+  const [barbershop] = await Promise.all([
     getBarbershopById(params.id, cookieHeader),
     getUserMe(cookieHeader),
   ]);

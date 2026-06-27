@@ -1,5 +1,5 @@
 import { cookies } from "next/headers";
-import { getMyBookings } from "@/services/booking";
+import { getMyBookings, type Booking } from "@/services/booking";
 import { Header } from "@/components/header";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -81,7 +81,7 @@ function BookingCard({
   booking,
   isPast = false,
 }: {
-  booking: any;
+  booking: Booking;
   isPast?: boolean;
 }) {
   const date = new Date(booking.date);
