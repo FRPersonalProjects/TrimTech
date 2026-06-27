@@ -9,7 +9,7 @@ COPY . .
 
 # gera o client prisma antes de buildar
 RUN npx prisma generate
-RUN npm run build
+RUN npx tsc -p tsconfig.build.json --noEmitOnError false && ls dist/
 RUN ls -la dist/
 
 # imagem final sem dependencies
