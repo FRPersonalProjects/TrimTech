@@ -3,9 +3,12 @@ import { api } from "./api";
 export type Barbershop = {
   id: string;
   name: string;
+  address?: string | null;
+  phone?: string[];
   description?: string | null;
   imageUrl?: string | null;
   createdAt?: string;
+  updatedAt?: string;
 };
 
 // buscar todas as barbearias
