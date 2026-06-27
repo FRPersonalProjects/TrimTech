@@ -22,8 +22,9 @@ RUN npm ci --omit=dev
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/generated ./generated
 COPY --from=builder /app/prisma ./prisma
+COPY --from=builder /app/node_modules/.prisma ./node_modules/.prisma
 
 EXPOSE 8080
 
 # roda as migrations e depois sobe o servidor
-CMD npx prisma migrate deploy && node dist/main
+CMD sh -c "npx prisma migrate deploy --schema=prisma/schema.prisma && node dist/main"
