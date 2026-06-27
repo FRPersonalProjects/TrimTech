@@ -10,6 +10,7 @@ COPY . .
 # gera o client prisma antes de buildar
 RUN npx prisma generate
 RUN npm run build
+RUN ls -la dist/
 
 # imagem final sem dependencies
 FROM node:22-alpine AS runner
@@ -23,6 +24,7 @@ COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/generated ./generated
 COPY --from=builder /app/prisma ./prisma
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
+COPY --from=builder /app/tsconfig.json ./tsconfig.json
 
 EXPOSE 8080
 
