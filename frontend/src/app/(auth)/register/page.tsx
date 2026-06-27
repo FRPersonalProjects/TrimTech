@@ -26,7 +26,8 @@ export default function RegisterPage() {
       await register(email, name, password);
       router.push("/login");
     } catch (err) {
-      setError(err.message || "Erro ao criar conta.");
+      const e = err as { message?: string };
+      setError(e.message || "Erro ao criar conta.");
       setPassword("");
     } finally {
       setLoading(false);
