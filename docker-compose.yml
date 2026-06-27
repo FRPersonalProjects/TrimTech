@@ -23,11 +23,11 @@ services:
     restart: unless-stopped
     environment:
       DATABASE_URL: postgresql://trimtech:trimtech@db:5432/trimtech
-      JWT_SECRET: ${JWT_SECRET:-troca_em_producao}
-      NODE_ENV: production
+      SECRET_KEY: ${SECRET_KEY:-troca_em_producao}
+      NODE_ENV: development
       PORT: 8080
     ports:
-      - "8080:8080"
+      - "8082:8080"
     depends_on:
       db:
         condition: service_healthy
@@ -38,10 +38,11 @@ services:
       dockerfile: Dockerfile
       args:
         # durante a build o next precisa saber a url do backend
-        NEXT_PUBLIC_API_URL: http://localhost:8080
+        NEXT_PUBLIC_API_URL: http://localhost:8082
     restart: unless-stopped
     environment:
-      NEXT_PUBLIC_API_URL: http://localhost:8080
+      NEXT_PUBLIC_API_URL: http://localhost:8082
+      API_INTERNAL_URL: http://backend:8080
     ports:
       - "3000:3000"
     depends_on:
