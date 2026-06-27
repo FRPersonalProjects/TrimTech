@@ -27,4 +27,4 @@ COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 EXPOSE 8080
 
 # roda as migrations e depois sobe o servidor
-CMD sh -c "npx prisma migrate deploy --schema=prisma/schema.prisma && node dist/main"
+CMD sh -c "npx prisma migrate deploy --schema=prisma/schema.prisma && node dist/src/main"
