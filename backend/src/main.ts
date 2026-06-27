@@ -4,7 +4,7 @@ import { AppModule } from './app.module';
 import cookieParser = require('cookie-parser');
 import 'dotenv/config';
 
-// console.log('Database URL:', process.env.DATABASE_URL);
+// log de inicializacao
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
